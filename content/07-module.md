@@ -64,12 +64,9 @@ import qualified Data.Map as M
 检索函数或搜寻函数位置就用[http://www.haskell.org/hoogle/ Hoogle]，相当了不起的Haskell搜索引擎! 你可以用函数名，模块名甚至类型声明来作为检索的条件。
 
 
-
-
 ## Data.List
 
-
-显而易见，Data.List是关于List操作的模块，它提供了一组非常有用的List处理函数。在前面我们已经见过了其中的几个函数(如map和filter)，这是Prelude模块出于方便起见，导出了几个Data.List里的函数。因为这几个函数是直接引用自Data.List，所以就无需使用qulified import。在下面，我们来看看几个以前没见过的函数:
+显而易见，`Data.List`是关于List操作的模块，它提供了一组非常有用的List处理函数。在前面我们已经见过了其中的几个函数(如`map`和`filter`)，这是`Prelude`模块出于方便起见，导出了几个`Data.List`里的函数。因为这几个函数是直接引用自`Data.List`，所以就无需使用`qulified import`。在下面，我们来看看几个以前没见过的函数:
 
 **intersperse**取一个元素与List作参数，并将该元素置于List中每对元素的中间。如下是个例子:
 
@@ -98,7 +95,7 @@ ghci> transpose ["hey","there","guys"]
 ["htg","ehu","yey","rs","e"]
 ```
 
-假如有两个多项式 _3x<sup>2</sup>_ + 5x + 9，_10x<sup>3</sup> + 9_ 和 _8x<sup>3</sup> + 5x<sup>2</sup> + x - 1_ ，将其相加，我们可以列三个List: ``[0,3,5,9]``，``[10,0,0,9]`` 和 ``[8,5,1,-1]``来表示。再用如下的方法取得结果。
+假如有两个多项式 `_3x<sup>2</sup>_ + 5x + 9，_10x<sup>3</sup> + 9_` 和 `_8x<sup>3</sup> + 5x<sup>2</sup> + x - 1_` ，将其相加，我们可以列三个List: ``[0,3,5,9]``，``[10,0,0,9]`` 和 ``[8,5,1,-1]``来表示。再用如下的方法取得结果。
 
 ```
 ghci> map sum $ transpose [[0,3,5,9],[10,0,0,9],[8,5,1,-1]]
@@ -653,10 +650,7 @@ ghci> decode 5 . encode 5 $ "This is a sentence"
 ```
 
 
-
-
 ## Data.Map
-
 
 关联列表(也叫做字典)是按照键值对排列而没有特定顺序的一种List。例如，我们用关联列表储存电话号码，号码就是值，人名就是键。我们并不关心它们的存储顺序，只要能按人名得到正确的号码就好.在haskell中表示关联列表的最简单方法就是弄一个二元组的List，而这二元组就首项为键，后项为值。如下便是个表示电话号码的关联列表:
 
@@ -697,7 +691,7 @@ findKey :: (Eq k) => k -> [(k,v)] -> Maybe v
 findKey key = foldr (\(k,v) acc -> if key == k then Just v else acc) Nothing
 ```
 
-    *Note*: 通常，使用fold来替代类似的递归函数会更好些。用fold的代码让人一目了然，而看明白递归则得多花点脑子。
+> 通常，使用fold来替代类似的递归函数会更好些。用fold的代码让人一目了然，而看明白递归则得多花点脑子。
 
 ```
 ghci> findKey "penny" phoneBook
@@ -732,6 +726,7 @@ Map.fromList :: (Ord k) => [(k，v)] -> Map.Map k v
 ghci> Map.empty
 fromList []
  }}
+```
 
 **insert**取一个键，一个值和一个map做参数，给这个map插入新的键值对，并返回一个新的map。
 
@@ -859,18 +854,13 @@ fromList [(3,104),(5,103),(6,339)]
 ``Data.Map``里面还有不少函数，这个文档中的列表就很全了。
 
 
-
-
-
-
-
 ## Data.Set
 
 ![](img/legosets.png)
 
-``Data.Set``模块提供了对数学中集合的处理。集合既像List也像Map: 它里面的每个元素都是唯一的，且内部的数据由一棵树来组织(这和Data.Map模块的map很像)， 必须得是可排序的。同样是插入,删除,判断从属关系之类的操作，使用集合要比List快得多。对一个集合而言，最常见的操作莫过于并集，判断从属或是将集合转为List
+`Data.Set`模块提供了对数学中集合的处理。集合既像List也像Map: 它里面的每个元素都是唯一的，且内部的数据由一棵树来组织(这和`Data.Map`模块的map很像)， 必须得是可排序的。同样是插入,删除,判断从属关系之类的操作，使用集合要比List快得多。对一个集合而言，最常见的操作莫过于并集，判断从属或是将集合转为List
 
-由于Data.Set模块与Prelude模块和Data.List模块中存在大量的命名冲突，所以我们使用_qualified import_
+由于`Data.Set`模块与`Prelude`模块和`Data.List`模块中存在大量的命名冲突，所以我们使用`qualified import`
 
 将import语句至于代码之中:
 
@@ -940,7 +930,6 @@ ghci> Set.delete 4 $ Set.fromList [3,4,5,4,3,4,5]
 fromList [3,5]
 ```
 
-
 也可以判断子集与真子集，如果集合A中的元素都属于集合B，那么A就是B的子集   如果A中的元素都属于B且B的元素比A多，那A就是B的真子集
 
 ```
@@ -967,7 +956,6 @@ ghci> Set.fromList [2,3,4,8] `Set.isSubsetOf` Set.fromList [1,2,3,4,5]
 False
 ```
 
-
 集合有一常见用途，那就是先``fromList``删掉重复元素后再``toList``转回去。尽管Data.List模块的``nub``函数完全可以完成这一工作，但在对付大List时则会明显的力不从心。使用集合则会快很多，``nub``函数只需List中的元素属于Eq类型类就行了，而若要使用集合，它必须得属于Ord类型类
 
 ```
@@ -980,8 +968,7 @@ fromList [3,4,5,6,7,8]
 在处理较大的List时，``setNub``要比``nub``快，但也可以从中看出，``nub``保留了List中元素的原有顺序，而``setNub``不。
 
 
-
-## 构造自己的模块 #build-your-own-module
+## 构造自己的模块
 
 我们已经见识过了几个很酷的模块，但怎样才能构造自己的模块呢?  几乎所有的编程语言都允许你将代码分成多个文件，haskell也不例外。在编程时，将功能相近的函数和类型至于同一模块中会是个很好的习惯。这样一来，你就可以轻松地一个import来重用其中的函数。
 
